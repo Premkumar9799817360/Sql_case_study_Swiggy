@@ -73,33 +73,76 @@ This SQL case study explores restaurant data from **Swiggy** to uncover deep ins
 ### 📈 Cost Analysis & Anomaly Detection
 
 - **Q8:** Find the restaurants that have an average cost which is higher than the total average cost of all restaurants.
+- ```SQL
+  select distinct restaurant_name  from swiggy
+  where cost_per_person> (select avg(cost_per_person) as avg_cost from swiggy)
+  
 
 ---
 
 ### 🆔 Restaurant Identification & Uniqueness
 
 - **Q9:** Retrieve the details of restaurants that have the same name but are located in different cities.
+- ``` sql
+      select distinct a.restaurant_name,a.city,b.city from swiggy a
+    join swiggy b
+    on a.restaurant_name = b.restaurant_name
+    and a.city != b.city
 
 ---
 
 ### 📋 Menu Breadth & Specialisation
 
 - **Q10:** Which restaurant offers the most number of items in the 'Main Course' category?
+- ```sql
+  select restaurant_name,count(item) as most_num_item  from swiggy
+    where MENU_CATEGORY = 'Main Course'
+  group by restaurant_name
+  order by most_num_item desc
+  limit 1;
+  
 - **Q11:** Which top 5 restaurants offer the highest number of categories?
-
----
+- ```sql
+  select restaurant_name , count(distinct menu_category) as highest_cat from swiggy
+  group by restaurant_name
+  order by highest_cat desc 
+  limit 5;
+  
 
 ### 🥗 Vegetarian & Non-Vegetarian Offerings
 
 - **Q12:** List the names of restaurants that are 100% vegetarian in alphabetical order of restaurant name.
-- **Q13:** Which restaurant provides the highest percentage of non-vegetarian food?
+- ``` sql
+    select distinct restaurant_name from swiggy
+  where restaurant_name not in (select distinct restaurant_name from swiggy
+    where VEG_OR_NONVEG='Non-veg');
+- ```sql
+     select restaurant_name,
+  count(case when veg_or_nonveg = 'Veg' then 1 end)*100.0/count(*) as veg_prec
+  from swiggy
+  group by restaurant_name
+  having veg_prec=100.0
 
+  
+- **Q13:** Which restaurant provides the highest percentage of non-vegetarian food?
+- ```sql
+  select restaurant_name,
+  round(100.*(count(case when veg_or_nonveg = 'Non-veg' then 1 end))/count(*),2) as non_veg_prec
+  from swiggy
+  group by restaurant_name
+  order by non_veg_prec desc 
+  limit 5;
 ---
 
 ### 📉 Pricing Efficiency
 
 - **Q14:** Which is the restaurant providing the lowest average price for all items?
-
+- ```sql
+  select distinct restaurant_name,
+  avg(price) as average_price
+  from swiggy 
+  group by restaurant_name
+  order by average_price limit 1
 ---
 
 ## 📄 View the Full Case Study PDF
