@@ -20,21 +20,53 @@ This SQL case study explores restaurant data from **Swiggy** to uncover deep ins
   select count( distinct restaurant_name) as total_restaurant from swiggy where rating > 4.5;
   
 - **Q2:** Which is the top 1 city with the highest number of restaurants?
+- ``` sql
+  select city, count(distinct restaurant_name) as total_restaurnt from swiggy
+  group by city 
+  order by total_restaurnt desc
+  limit 1;
+  
 - **Q3:** How many restaurants have the word "Pizza" in their name?
+- ``` sql
+     select distinct restaurant_name as name_of_restaurant from swiggy
+    where upper(restaurant_name) like '%PIZZA%';
+
 
 ---
 
 ### 🍽️ Cuisine and Rating Insights
 
 - **Q4:** What is the most common cuisine among the restaurants in the dataset?
+- ``` sql
+  select cuisine,count(*)as cuisine_count from swiggy
+  group by cuisine
+  order by cuisine_count desc
+  limit 1;
+     
 - **Q5:** What is the average rating of restaurants in each city?
-
+- ```sql 
+      select city, round(avg(rating),2) as avg_rating from swiggy
+      group by city
 ---
 
 ### 💰 Menu and Pricing Deep Dive
 
 - **Q6:** What is the highest price of an item under the 'Recommended' menu category for each restaurant?
+- ```sql
+  select distinct restaurant_name,
+  menu_category,
+  max(price)as highestprice from swiggy
+  where menu_category = 'Recommended'
+  group by restaurant_name,menu_category
+  order by highestprice desc;
+  
 - **Q7:** Find the top 5 most expensive restaurants that offer cuisine other than Indian cuisine.
+-  ```SQL
+      select distinct restaurant_name , cost_per_person from swiggy
+      where cuisine != 'Indian' and cost_per_person is not null
+    order by cost_per_person desc
+    limit 5;
+   
 
 ---
 
