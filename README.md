@@ -16,6 +16,9 @@ This SQL case study explores restaurant data from **Swiggy** to uncover deep ins
 ### 🏆 Restaurant Performance Analysis
 
 - **Q1:** How many restaurants have a rating greater than 4.5?
+- ```sql
+  select count( distinct restaurant_name) as total_restaurant from swiggy where rating > 4.5;
+  
 - **Q2:** Which is the top 1 city with the highest number of restaurants?
 - **Q3:** How many restaurants have the word "Pizza" in their name?
 
