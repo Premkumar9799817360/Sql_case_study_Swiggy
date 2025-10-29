@@ -5,7 +5,7 @@
 This SQL case study explores restaurant data from **Swiggy** to uncover deep insights into ratings, cuisine preferences, pricing strategies, and restaurant performance. The project is designed to demonstrate practical SQL skills for data-driven business decision-making.
 
 **Author:** Prem Kumar  
-**Case Study Type:** Restaurant Data Analytics  
+**Case Study Type:** Restaurant Data Analytics
 **Platform Used:** Snowflake
 **PDF Link:** [SQL-Case-Study-Swiggy_Prem.pdf](https://github.com/Premkumar9799817360/Sql_case_study_Swiggy/blob/main/SQL-Case-Study-Swiggy_Prem.pdf)
 
